@@ -1,6 +1,6 @@
 export class Citation {
     id : number;
-    citationid : string;
+    citationId : string;
     description : string;
 
 }

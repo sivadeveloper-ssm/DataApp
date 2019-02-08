@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ContentService } from '../../services/content.service';
 import { ActivatedRoute } from '@angular/router';
-import { Type } from '../../models/generic';
+import { BasicEntity } from '../../models/basicEntity';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
 @Component({
@@ -11,41 +11,38 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 })
 export class GenericComponent implements OnInit {
 
-  @Input() results : Type[]; 
+  private attribute;
+  @Input() results :  [];
   displayedColumns : string[] = ['id', 'description'];
-  dataSource : MatTableDataSource<Type>;
-  @ViewChild(MatPaginator) paginator : MatPaginator;
+  private dataSource : MatTableDataSource<BasicEntity>;
+  @ViewChild(MatPaginator) paginator : MatPaginator; 
   @ViewChild(MatSort) sort : MatSort;
-  attribute : string;
-  constructor(private api : ContentService , private route : ActivatedRoute ) { }
+  constructor( private api : ContentService,private route : ActivatedRoute) { }
 
-  ngOnInit() {  
-    
-    
-    /* this.route.params.subscribe( params => {
+  ngOnInit() {
 
-      
-      this.attribute = params['tag'];
-
-      this.api.getData(this.attribute).subscribe( data => {
-        this.results = data;
-        this.dataSource = new MatTableDataSource<Type>(this.results);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      });
+    this.attribute = this.changeCaseFirstCharater(this.route.snapshot.url[0].path);
+    console.log(this.attribute);
+    this.api.getData(this.attribute).subscribe( data => {
+      this.results = data;
+      this.dataSource = new MatTableDataSource<BasicEntity>(this.results);
+      this.dataSource.sort = this.sort;
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     });
- */
-   
-
-
-
-    
   }
+
+ 
+  changeCaseFirstCharater(txt) {
+    return txt.charAt(0).toLowerCase() + txt.slice(1); 
+  }
+
 
   applyFilter(filterValue : string){
     console.log(filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
     console.log(this.dataSource);
   }
+
+
 
 }

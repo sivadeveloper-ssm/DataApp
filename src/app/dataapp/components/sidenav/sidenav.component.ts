@@ -9,17 +9,15 @@ import { Router } from '@angular/router';
 export class SidenavComponent implements OnInit {
 
   private databaseTables = ['Areas','SubAreas','Citations','ContentTypes','Industries','Products','GoverningBodies',
-                    'ContentSubTypes','FileTypes','Geographies','GeographyTypes','Synonyms','Taxonomy','TemplateTypes'];
+                    'ContentSubTypes','FileTypes','Geographies','Synonyms','Taxonomy','TemplateTypes'];
 
 
   constructor(private route : Router) { }
 
   ngOnInit() {
-    this.route.navigate(['/dataapp/generic']);
+    this.route.navigate(['/dataapp/landingpage']);
   }
 
 
-  changeCaseFirstCharater(txt) {
-    return txt.charAt(0).toLowerCase() + txt.slice(1); 
-  }
+
 }

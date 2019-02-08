@@ -21,7 +21,7 @@ export class CitationsComponent implements OnInit {
 
   ngOnInit() {  
     
-    console.log("here i am ");
+    
     this.attribute = this.route.snapshot.url[0].path.toLowerCase();
 
       this.api.getData(this.attribute).subscribe( data => {
