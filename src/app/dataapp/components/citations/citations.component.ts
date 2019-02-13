@@ -27,8 +27,8 @@ export class CitationsComponent implements OnInit {
       this.api.getData(this.attribute).subscribe( data => {
         this.results = data;
         this.dataSource = new MatTableDataSource<Citation>(this.results);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+        setTimeout(() => this.dataSource.sort = this.sort);
       });
    
 

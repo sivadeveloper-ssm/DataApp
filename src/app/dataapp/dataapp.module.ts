@@ -14,6 +14,9 @@ import { ContentService } from './services/content.service';
 import { CitationsComponent } from './components/citations/citations.component';
 import { LandingPageComponent } from './components/landingpage/landingpage.component';
 import { GenericComponent } from './components/generic/generic.component';
+import { SynonymsComponent } from './components/synonyms/synonyms.component';
+import { ContenttypeComponent } from './components/contenttype/contenttype.component';
+import { HelperService } from './services/helper.service';
 
 
 
@@ -25,7 +28,11 @@ const routes : Routes = [
      { path : 'TemplateTypes' , component : GenericComponent},
      { path : 'Areas' , component : GenericComponent},
      { path : 'SubAreas', component : GenericComponent},
-     { path : 'GoverningBodies' , component : GenericComponent}
+     { path : 'GoverningBodies' , component : GenericComponent},
+     {path : 'Industries' , component : GenericComponent},
+     {path : 'Products' , component : GenericComponent},
+     {path : 'Synonyms' , component : SynonymsComponent},
+     {path : 'ContentTypes' , component : ContenttypeComponent},
    ]},
    
    {path : "**", redirectTo : ''}
@@ -33,7 +40,7 @@ const routes : Routes = [
 ];
 
 @NgModule({
-  declarations: [LandingPageComponent,ToolbarComponent,SidenavComponent, DataappComponent, CitationsComponent, GenericComponent],
+  declarations: [LandingPageComponent,ToolbarComponent,SidenavComponent, DataappComponent, CitationsComponent, GenericComponent, SynonymsComponent, ContenttypeComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -42,7 +49,8 @@ const routes : Routes = [
     FormsModule
   ],
   providers :[
-    ContentService
+    ContentService,
+    HelperService
   ]
 })
 export class DataappModule { }

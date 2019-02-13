@@ -3,6 +3,7 @@ import { ContentService } from '../../services/content.service';
 import { ActivatedRoute } from '@angular/router';
 import { BasicEntity } from '../../models/basicEntity';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { HelperService } from '../../services/helper.service';
 
 @Component({
   selector: 'app-generic',
@@ -12,35 +13,30 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 export class GenericComponent implements OnInit {
 
   private attribute;
+  private cardTitleArray = ['Areas','Sub Areas', 'Template Types', 'Governing Bodies'];
+  private cardTitleStr ; 
   @Input() results :  [];
   displayedColumns : string[] = ['id', 'description'];
   private dataSource : MatTableDataSource<BasicEntity>;
   @ViewChild(MatPaginator) paginator : MatPaginator; 
   @ViewChild(MatSort) sort : MatSort;
-  constructor( private api : ContentService,private route : ActivatedRoute) { }
+  constructor( private api : ContentService,private route : ActivatedRoute,private helper : HelperService) { }
 
   ngOnInit() {
 
-    this.attribute = this.changeCaseFirstCharater(this.route.snapshot.url[0].path);
-    console.log(this.attribute);
+    this.attribute = this.helper.changeCaseFirstCharater(this.route.snapshot.url[0].path);
+    
+
     this.api.getData(this.attribute).subscribe( data => {
       this.results = data;
       this.dataSource = new MatTableDataSource<BasicEntity>(this.results);
-      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
+      setTimeout(() => this.dataSource.sort = this.sort);
     });
   }
 
- 
-  changeCaseFirstCharater(txt) {
-    return txt.charAt(0).toLowerCase() + txt.slice(1); 
-  }
-
-
   applyFilter(filterValue : string){
-    console.log(filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log(this.dataSource);
   }
 
 

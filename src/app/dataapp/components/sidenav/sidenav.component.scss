@@ -12,6 +12,10 @@
     margin: 50px;
 }
 
+.app-sidenav-list {
+   background-color: #9FA8DA;
+  // height: 93vh;
+}
 
 .app-sidenav-content{
     display: flex;
@@ -24,9 +28,17 @@
 }
 
 .app-sidenav-list-item{
- background-color: ghostwhite;
+    background-color: #E8EAF6;
+    margin-top: 2px;
+}
+.app-sidenav-list-item:hover{
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+    transition: 1s ease;
+    background-color : #9FA8DA;
 }
 
 .is-active {
-    background-color : cornflowerblue;
+    background-color : #7986CB;
 }
