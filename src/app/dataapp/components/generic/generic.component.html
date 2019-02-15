@@ -20,12 +20,78 @@
                 <td mat-cell *matCellDef="let entity"> {{entity.id}} </td>
               </ng-container>
           
+            
            
               <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
                 <td mat-cell *matCellDef="let entity"> {{entity.description}} </td>
               </ng-container>
+
+               <!-- Start of attributes specific to Citations -->
+
+              <ng-container matColumnDef="citationid" *ngIf="attribute == 'citations'">
+                <th mat-header-cell *matHeaderCellDef > Citation Id </th>
+                <td mat-cell *matCellDef="let citation"> {{citation.citationId}} </td>
+              </ng-container>
+
+               <!-- End of attributes specific to Citations-->
+
+                <!-- Start of attributes specific to File Types-->
+
+              <ng-container matColumnDef="extension" *ngIf="attribute == 'fileTypes'">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Extension </th>
+                <td mat-cell *matCellDef="let filetypes"> {{filetypes.extension}} </td>
+              </ng-container>
+
+               <!-- End of attributes specific to File Types-->
           
+                <!-- Start of attributes specific to Synoyms-->
+
+              <ng-container matColumnDef="topic" *ngIf="attribute == 'synonyms'">
+                <th mat-header-cell *matHeaderCellDef> Topic </th>
+                <td mat-cell *matCellDef="let synonymn"> {{getTopicName(synonymn.topicId)}} </td>
+              </ng-container>
+
+              <!-- End of attributes specific to Synoyms-->
+
+               <!-- start of attributes specific to Content Types -->
+
+              <ng-container matColumnDef="templateType" *ngIf="attribute =='contentTypes'">
+                <th mat-header-cell *matHeaderCellDef> Template Type </th>
+                <td mat-cell *matCellDef="let contenttype"> {{getTemplateName(contenttype.templateId)}} </td>
+              </ng-container>
+
+               <!-- End of attributes specific to Content Types -->
+
+
+                <!-- start of attributes specific to Geographies -->
+                
+              <ng-container matColumnDef="abbr" *ngIf="attribute == 'geographies'">
+                <th mat-header-cell *matHeaderCellDef> Abbreviation </th>
+                <td mat-cell *matCellDef="let geography"> {{geography.abbreviation}} </td>
+              </ng-container>
+         
+            <ng-container matColumnDef="geographyType" *ngIf="attribute == 'geographies'">
+              <th mat-header-cell *matHeaderCellDef> Geography Type </th>
+              <td mat-cell *matCellDef="let geography"> {{getGeographyType(geography.type)}} </td>
+            </ng-container>
+
+             <!-- End of attributes specific to Geographies -->
+            
+            <!-- start of attributes specific to Content Sub Types -->
+
+            <ng-container matColumnDef="parent" *ngIf="attribute == 'contentSubTypes'">
+              <th mat-header-cell *matHeaderCellDef> Parent </th>
+              <td mat-cell *matCellDef="let contentsubtype"> {{getContentTypeName(contentsubtype.parentId)}} </td>
+            </ng-container>
+
+          <ng-container matColumnDef="templateType" *ngIf="attribute == 'contentSubTypes'">
+            <th mat-header-cell *matHeaderCellDef> Template Type </th>
+            <td mat-cell *matCellDef="let contentsubtype"> {{getTemplateName(contentsubtype.templateId)}} </td>
+          </ng-container>
+
+            <!-- End of attributes specific to Content Sub Types -->
+
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>

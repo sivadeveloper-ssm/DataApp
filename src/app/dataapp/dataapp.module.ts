@@ -11,15 +11,9 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DataappComponent } from './dataapp.component';
 import { ContentService } from './services/content.service';
-import { CitationsComponent } from './components/citations/citations.component';
 import { LandingPageComponent } from './components/landingpage/landingpage.component';
 import { GenericComponent } from './components/generic/generic.component';
-import { SynonymsComponent } from './components/synonyms/synonyms.component';
-import { ContenttypeComponent } from './components/contenttype/contenttype.component';
 import { HelperService } from './services/helper.service';
-import { ContentsubtypeComponent } from './components/contentsubtype/contentsubtype.component';
-import { GeographyComponent } from './components/geography/geography.component';
-import { FileTypesComponent } from './components/file-types/file-types.component';
 
 
 
@@ -27,18 +21,18 @@ const routes : Routes = [
   { path : '', component : DataappComponent,
    children : [   
      { path : 'landingpage' , component : LandingPageComponent},
-     { path : 'Citations' , component : CitationsComponent},
-     { path : 'TemplateTypes' , component : GenericComponent},
      { path : 'Areas' , component : GenericComponent},
      { path : 'SubAreas', component : GenericComponent},
      { path : 'GoverningBodies' , component : GenericComponent},
      {path : 'Industries' , component : GenericComponent},
      {path : 'Products' , component : GenericComponent},
-     {path : 'Synonyms' , component : SynonymsComponent},
-     {path : 'ContentTypes' , component : ContenttypeComponent},
-     {path : 'ContentSubTypes' , component : ContentsubtypeComponent},
-     { path : 'Geographies', component : GeographyComponent},
-     {path : 'FileTypes', component : FileTypesComponent}
+     { path : 'TemplateTypes' , component : GenericComponent},
+     { path : 'Citations' , component : GenericComponent},
+     {path : 'Synonyms' , component : GenericComponent},
+     {path : 'ContentTypes' , component : GenericComponent},
+     {path : 'ContentSubTypes' , component : GenericComponent},
+     { path : 'Geographies', component : GenericComponent},
+     {path : 'FileTypes', component : GenericComponent}
    ]},
    
    {path : "**", redirectTo : ''}
@@ -46,7 +40,12 @@ const routes : Routes = [
 ];
 
 @NgModule({
-  declarations: [LandingPageComponent,ToolbarComponent,SidenavComponent, DataappComponent, CitationsComponent, GenericComponent, SynonymsComponent, ContenttypeComponent, ContentsubtypeComponent, GeographyComponent, FileTypesComponent],
+  declarations: [LandingPageComponent,
+                  ToolbarComponent,
+                  SidenavComponent, 
+                  DataappComponent,
+                  GenericComponent 
+                ],
   imports: [
     CommonModule,
     HttpClientModule,
