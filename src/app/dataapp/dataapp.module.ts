@@ -17,6 +17,9 @@ import { GenericComponent } from './components/generic/generic.component';
 import { SynonymsComponent } from './components/synonyms/synonyms.component';
 import { ContenttypeComponent } from './components/contenttype/contenttype.component';
 import { HelperService } from './services/helper.service';
+import { ContentsubtypeComponent } from './components/contentsubtype/contentsubtype.component';
+import { GeographyComponent } from './components/geography/geography.component';
+import { FileTypesComponent } from './components/file-types/file-types.component';
 
 
 
@@ -33,6 +36,9 @@ const routes : Routes = [
      {path : 'Products' , component : GenericComponent},
      {path : 'Synonyms' , component : SynonymsComponent},
      {path : 'ContentTypes' , component : ContenttypeComponent},
+     {path : 'ContentSubTypes' , component : ContentsubtypeComponent},
+     { path : 'Geographies', component : GeographyComponent},
+     {path : 'FileTypes', component : FileTypesComponent}
    ]},
    
    {path : "**", redirectTo : ''}
@@ -40,7 +46,7 @@ const routes : Routes = [
 ];
 
 @NgModule({
-  declarations: [LandingPageComponent,ToolbarComponent,SidenavComponent, DataappComponent, CitationsComponent, GenericComponent, SynonymsComponent, ContenttypeComponent],
+  declarations: [LandingPageComponent,ToolbarComponent,SidenavComponent, DataappComponent, CitationsComponent, GenericComponent, SynonymsComponent, ContenttypeComponent, ContentsubtypeComponent, GeographyComponent, FileTypesComponent],
   imports: [
     CommonModule,
     HttpClientModule,

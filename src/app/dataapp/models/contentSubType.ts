@@ -1,5 +1,6 @@
-export class ContentType{
+export class ContentSubType{
     id : number;
     description : string;
+    parentId : number;
     templateId : number;
 }

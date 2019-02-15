@@ -1,21 +1,21 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Synonyms } from '../../models/synonyms';
+import { geography } from '../../models/geography';
+import { BasicEntity } from '../../models/basicEntity';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { ContentService } from '../../services/content.service';
 import { ActivatedRoute } from '@angular/router';
-import { BasicEntity } from '../../models/basicEntity';
 
 @Component({
-  selector: 'app-synonyms',
-  templateUrl: './synonyms.component.html',
-  styleUrls: ['./synonyms.component.scss']
+  selector: 'app-geography',
+  templateUrl: './geography.component.html',
+  styleUrls: ['./geography.component.scss']
 })
-export class SynonymsComponent implements OnInit {
+export class GeographyComponent implements OnInit {
 
-  @Input() results : Synonyms[];
-  @Input() topics : BasicEntity[];
- displayedColumns : string[] = ['id','description','topic'];
- dataSource : MatTableDataSource<Synonyms>;
+  @Input() results : geography[];
+  @Input() geographyType : BasicEntity[];
+ displayedColumns : string[] = ['id','description','abbr','geographyType'];
+ dataSource : MatTableDataSource<geography>;
  @ViewChild(MatPaginator) paginator : MatPaginator;
   @ViewChild(MatSort) sort : MatSort;
   private attribute : string;
@@ -26,22 +26,22 @@ export class SynonymsComponent implements OnInit {
 
     this.attribute = this.route.snapshot.url[0].path.toLowerCase();
 
-    this.api.getData('subAreas').subscribe( data => {
-      this.topics = data;
+    this.api.getData('geographyTypes').subscribe( data => {
+      this.geographyType = data;
     });
 
     this.api.getData(this.attribute).subscribe( data => {
       this.results = data;
-      this.dataSource = new MatTableDataSource<Synonyms>(this.results);
+      this.dataSource = new MatTableDataSource<geography>(this.results);
       setTimeout(() => this.dataSource.paginator = this.paginator);
       setTimeout(() => this.dataSource.sort = this.sort);
     });
 
   }
 
-  getTopicName(topicId){
-    if(this.topics)
-     return this.topics.find( o => o.id == topicId).description;
+  getGeographyType(typeId){
+    if(this.geographyType)
+     return this.geographyType.find( o => o.id == typeId).description;
 }
 
 

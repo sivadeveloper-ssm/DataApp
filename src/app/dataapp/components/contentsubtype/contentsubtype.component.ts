@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ContentType } from '../../models/contenttype';
+import { ContentSubType } from '../../models/contentSubType';
 import { BasicEntity } from '../../models/basicEntity';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { ContentService } from '../../services/content.service';
@@ -7,16 +7,18 @@ import { ActivatedRoute } from '@angular/router';
 import { HelperService } from '../../services/helper.service';
 
 @Component({
-  selector: 'app-contenttype',
-  templateUrl: './contenttype.component.html',
-  styleUrls: ['./contenttype.component.scss']
+  selector: 'app-contentsubtype',
+  templateUrl: './contentsubtype.component.html',
+  styleUrls: ['./contentsubtype.component.scss']
 })
-export class ContenttypeComponent implements OnInit {
+export class ContentsubtypeComponent implements OnInit {
 
-  @Input() results : ContentType[];
+  
+  @Input() results : ContentSubType[];
   @Input() templateTypes : BasicEntity[];
- displayedColumns : string[] = ['id','description','templateType'];
- dataSource : MatTableDataSource<ContentType>;
+  @Input() contentTypes : BasicEntity[];
+ displayedColumns : string[] = ['id','description','parent','templateType'];
+ dataSource : MatTableDataSource<ContentSubType>;
  @ViewChild(MatPaginator) paginator : MatPaginator;
   @ViewChild(MatSort) sort : MatSort;
   private attribute : string;
@@ -34,9 +36,15 @@ export class ContenttypeComponent implements OnInit {
       this.templateTypes = data;
     });
 
+
+    this.api.getData('contentTypes').subscribe( data => {
+      this.contentTypes = data;
+    });
+
+
     this.api.getData(this.attribute).subscribe( data => {
       this.results = data;
-      this.dataSource = new MatTableDataSource<ContentType>(this.results);
+      this.dataSource = new MatTableDataSource<ContentSubType>(this.results);
       setTimeout(() => this.dataSource.paginator = this.paginator);
       setTimeout(() => this.dataSource.sort = this.sort);
     });
@@ -48,11 +56,14 @@ export class ContenttypeComponent implements OnInit {
      return this.templateTypes.find( o => o.id == templateId).description;
 }
 
+getContentTypeName(contentTypeId){
+  if(this.contentTypes)
+   return this.contentTypes.find( o => o.id == contentTypeId).description;
+}
 
 
 applyFilter(filterValue : string){
   this.dataSource.filter = filterValue.trim().toLowerCase();
 }
-
 
 }
