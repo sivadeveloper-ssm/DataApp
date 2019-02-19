@@ -1,0 +1,101 @@
+<div class="container">
+        <h1 mat-dialog-title color="primary"> {{ data.title }}</h1>
+        
+        <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+        
+        
+        <div class="form">
+        
+          <mat-form-field color="accent">
+            <input matInput  required name="description" [(ngModel)]="data.description" placeholder="Description" >
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        
+        </div>
+<!-- Below field is only visible to Citation Attribute-->
+        <div class="form">
+        
+            <mat-form-field color="accent" *ngIf="data.citationId != undefined ">
+              <input matInput  required name="citationId" [(ngModel)]="data.citationId" placeholder="Citation Id" >
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          
+          </div>
+
+  <!-- Below field is visible to Content Type and Content Sub Types Attributes -->
+      <div class="form">       
+        <mat-form-field color="accent" *ngIf="data.templateId != undefined">
+          <mat-select placeholder="Template Types" required [(ngModel)]="data.templateId"  name="templateType">
+            <mat-option *ngFor="let template of data.templateTypes" [value]="template.id" >
+                {{template.description}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        </div>
+  
+<!-- Below field is visible to Content Sub Type Attributes -->
+        <div class="form">    
+            <mat-form-field color="accent" *ngIf="data.parentId !=undefined">
+              <mat-select placeholder="Content Type" required [(ngModel)]="data.parentId"  name="contenttype">
+                <mat-option *ngFor="let contenttype of data.contentTypes" [value]="contenttype.id" >
+                  {{contenttype.description}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+
+
+          
+<!-- Only visible to the FileTypes Attribute -->
+        <div class="form">    
+            <mat-form-field color="accent" *ngIf="data.extension !=undefined">
+              <input matInput  required name="extension" [(ngModel)]="data.extension" required placeholder="Extension" >
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            </div>
+
+
+            <!-- Only visible to the Synonym Attribute -->
+        <div class="form">    
+            <mat-form-field color="accent" *ngIf="data.topicId !=undefined">
+              <mat-select placeholder="Topics" required [(ngModel)]="data.topicId"  name="topics">
+                <mat-option *ngFor="let topics of data.topics" [value]="topics.id" >
+                  {{topics.description}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+  
+          
+  
+<!-- Only visible to the Geography Attribute -->
+        <div class="form">    
+            <mat-form-field color="accent" *ngIf="data.type !=undefined">
+              <mat-select placeholder="Geography" required [(ngModel)]="data.type"  name="Geography">
+                <mat-option *ngFor="let geography of data.geographyTypes" [value]="geography.id" >
+                  {{geography.description}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+  
+  <!-- Only visible to the geography Attribute -->
+            <div class="form">    
+              <mat-form-field color="accent" *ngIf="data.abbreviation !=undefined">
+                <input matInput  required name="Abbreviation" [(ngModel)]="data.abbreviation" required placeholder="Abbreviation" >
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              </div>
+
+
+        <div mat-dialog-actions>
+        
+          <button mat-button [mat-dialog-close]="data.description" (click)="onAdd()" [disabled]="!formControl.valid">Add</button>
+          <button mat-button (click)="onCancel()">Cancel</button>
+        </div>
+        </form>
+        </div>

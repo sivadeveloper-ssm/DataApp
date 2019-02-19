@@ -5,11 +5,11 @@
     <mat-toolbar color="primary">
       Fields
     </mat-toolbar>
-  <div class="app-sidenav-list">
+  <div class="app-sidenav-list" color="primary">
       <mat-nav-list>
           <mat-list-item *ngFor="let table of databaseTables" [routerLinkActive]="['is-active']" class="app-sidenav-list-item">
-        <a matLine [routerLink]="['/dataapp/',table]" >
-              {{ table }}</a>
+        <a matLine [routerLink]="['/dataapp/',table]" class="app-sidenav-link" >
+              {{ map.get(table) }}</a>
           </mat-list-item>
         </mat-nav-list>
   </div>

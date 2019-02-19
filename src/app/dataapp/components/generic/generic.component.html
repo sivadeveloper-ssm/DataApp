@@ -4,13 +4,15 @@
 <div *ngIf="results">
   <mat-card>
     <mat-card-header>
-      <mat-card-title fxLayoutAlign="center">{{attribute.toUpperCase()}}</mat-card-title>
+      <mat-card-title >
+        {{map.get(this.attribute)}}    
+      </mat-card-title>
       
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content >
         <div class="mat-elevation-z8">
           <mat-form-field>
-              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" >
           </mat-form-field>
 
             <table mat-table [dataSource]="dataSource" matSort class="mat-elavation-z8">
@@ -24,14 +26,30 @@
            
               <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-                <td mat-cell *matCellDef="let entity"> {{entity.description}} </td>
+                <td mat-cell *matCellDef="let entity" > {{entity.description}} </td>
               </ng-container>
+
+              <ng-container matColumnDef="modifybutton">
+                  <th mat-header-cell *matHeaderCellDef class="card-mat-table-data-button">
+                    
+                      <button mat-icon-button color="primary"   class="mat-elevation-z1" (click)="openDialog()">
+                          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+                        </button>
+                  </th>
+                <td mat-cell *matCellDef="let row : let i=index" class="card-mat-table-data-button">
+                    <button mat-icon-button color="accent" (click)="openEditDialog(row)">
+                        <mat-icon aria-label="Edit">edit</mat-icon>
+                      </button>
+                </td>
+              </ng-container>
+
 
                <!-- Start of attributes specific to Citations -->
 
               <ng-container matColumnDef="citationid" *ngIf="attribute == 'citations'">
                 <th mat-header-cell *matHeaderCellDef > Citation Id </th>
-                <td mat-cell *matCellDef="let citation"> {{citation.citationId}} </td>
+                <td mat-cell *matCellDef="let citation">
+                   {{citation.citationId}} </td>
               </ng-container>
 
                <!-- End of attributes specific to Citations-->
@@ -39,7 +57,7 @@
                 <!-- Start of attributes specific to File Types-->
 
               <ng-container matColumnDef="extension" *ngIf="attribute == 'fileTypes'">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Extension </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > Extension </th>
                 <td mat-cell *matCellDef="let filetypes"> {{filetypes.extension}} </td>
               </ng-container>
 
@@ -48,8 +66,9 @@
                 <!-- Start of attributes specific to Synoyms-->
 
               <ng-container matColumnDef="topic" *ngIf="attribute == 'synonyms'">
-                <th mat-header-cell *matHeaderCellDef> Topic </th>
-                <td mat-cell *matCellDef="let synonymn"> {{getTopicName(synonymn.topicId)}} </td>
+                <th mat-header-cell *matHeaderCellDef > Topic </th>
+                <td mat-cell *matCellDef="let synonymn">
+                   {{getTopicName(synonymn.topicId)}} </td>
               </ng-container>
 
               <!-- End of attributes specific to Synoyms-->
@@ -57,22 +76,23 @@
                <!-- start of attributes specific to Content Types -->
 
               <ng-container matColumnDef="templateType" *ngIf="attribute =='contentTypes'">
-                <th mat-header-cell *matHeaderCellDef> Template Type </th>
-                <td mat-cell *matCellDef="let contenttype"> {{getTemplateName(contenttype.templateId)}} </td>
+                <th mat-header-cell *matHeaderCellDef > Template Type </th>
+                <td mat-cell *matCellDef="let contenttype">
+                   {{getTemplateName(contenttype.templateId)}} </td>
               </ng-container>
 
                <!-- End of attributes specific to Content Types -->
 
 
                 <!-- start of attributes specific to Geographies -->
-                
+
               <ng-container matColumnDef="abbr" *ngIf="attribute == 'geographies'">
-                <th mat-header-cell *matHeaderCellDef> Abbreviation </th>
+                <th mat-header-cell *matHeaderCellDef > Abbreviation </th>
                 <td mat-cell *matCellDef="let geography"> {{geography.abbreviation}} </td>
               </ng-container>
          
             <ng-container matColumnDef="geographyType" *ngIf="attribute == 'geographies'">
-              <th mat-header-cell *matHeaderCellDef> Geography Type </th>
+              <th mat-header-cell *matHeaderCellDef > Geography Type </th>
               <td mat-cell *matCellDef="let geography"> {{getGeographyType(geography.type)}} </td>
             </ng-container>
 
@@ -81,7 +101,7 @@
             <!-- start of attributes specific to Content Sub Types -->
 
             <ng-container matColumnDef="parent" *ngIf="attribute == 'contentSubTypes'">
-              <th mat-header-cell *matHeaderCellDef> Parent </th>
+              <th mat-header-cell *matHeaderCellDef > Parent </th>
               <td mat-cell *matCellDef="let contentsubtype"> {{getContentTypeName(contentsubtype.parentId)}} </td>
             </ng-container>
 
@@ -92,13 +112,19 @@
 
             <!-- End of attributes specific to Content Sub Types -->
 
+          
+
+
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-row   *matRowDef="let row; columns: displayedColumns;" ></tr>
             </table>
           
             <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
           </div>
-          
+         
     </mat-card-content>
   </mat-card>
+ 
+        
+  
 </div> 

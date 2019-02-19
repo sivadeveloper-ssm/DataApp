@@ -13,8 +13,8 @@
 }
 
 .app-sidenav-list {
-   background-color: #9FA8DA;
-  // height: 93vh;
+//   background-color: #9FA8DA;
+   height: 93vh;
 }
 
 .app-sidenav-content{
@@ -28,8 +28,9 @@
 }
 
 .app-sidenav-list-item{
-    background-color: #E8EAF6;
-    margin-top: 2px;
+ //   background-color: #E8EAF6;
+    margin-top: 0px;
+    
 }
 .app-sidenav-list-item:hover{
     -webkit-transform: scale(0.9);
@@ -41,4 +42,8 @@
 
 .is-active {
     background-color : #7986CB;
+}
+
+.app-sidenav-link{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }

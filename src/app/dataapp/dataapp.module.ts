@@ -14,25 +14,26 @@ import { ContentService } from './services/content.service';
 import { LandingPageComponent } from './components/landingpage/landingpage.component';
 import { GenericComponent } from './components/generic/generic.component';
 import { HelperService } from './services/helper.service';
+import { AdddialogComponent } from './dialogs/adddialog/adddialog.component';
+import { EditdialogComponent } from './dialogs/editdialog/editdialog.component';
 
 
 
 const routes : Routes = [
   { path : '', component : DataappComponent,
-   children : [   
-     { path : 'landingpage' , component : LandingPageComponent},
-     { path : 'Areas' , component : GenericComponent},
-     { path : 'SubAreas', component : GenericComponent},
-     { path : 'GoverningBodies' , component : GenericComponent},
-     {path : 'Industries' , component : GenericComponent},
-     {path : 'Products' , component : GenericComponent},
-     { path : 'TemplateTypes' , component : GenericComponent},
-     { path : 'Citations' , component : GenericComponent},
-     {path : 'Synonyms' , component : GenericComponent},
-     {path : 'ContentTypes' , component : GenericComponent},
-     {path : 'ContentSubTypes' , component : GenericComponent},
-     { path : 'Geographies', component : GenericComponent},
-     {path : 'FileTypes', component : GenericComponent}
+   children : [ 
+     { path : 'areas' , component : GenericComponent},
+     { path : 'subAreas', component : GenericComponent},
+     { path : 'governingBodies' , component : GenericComponent},
+     {path : 'industries' , component : GenericComponent},
+     {path : 'products' , component : GenericComponent},
+     { path : 'templateTypes' , component : GenericComponent},
+     { path : 'citations' , component : GenericComponent},
+     {path : 'synonyms' , component : GenericComponent},
+     {path : 'contentTypes' , component : GenericComponent},
+     {path : 'contentSubTypes' , component : GenericComponent},
+     { path : 'geographies', component : GenericComponent},
+     {path : 'fileTypes', component : GenericComponent}
    ]},
    
    {path : "**", redirectTo : ''}
@@ -44,7 +45,9 @@ const routes : Routes = [
                   ToolbarComponent,
                   SidenavComponent, 
                   DataappComponent,
-                  GenericComponent 
+                  GenericComponent,
+                  AdddialogComponent,
+                  EditdialogComponent 
                 ],
   imports: [
     CommonModule,
@@ -52,6 +55,10 @@ const routes : Routes = [
     MaterialModule,
     RouterModule.forChild(routes),
     FormsModule
+  ],
+  entryComponents : [
+    AdddialogComponent,
+    EditdialogComponent
   ],
   providers :[
     ContentService,
