@@ -11,7 +11,6 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DataappComponent } from './dataapp.component';
 import { ContentService } from './services/content.service';
-import { LandingPageComponent } from './components/landingpage/landingpage.component';
 import { GenericComponent } from './components/generic/generic.component';
 import { HelperService } from './services/helper.service';
 import { AdddialogComponent } from './dialogs/adddialog/adddialog.component';
@@ -41,8 +40,7 @@ const routes : Routes = [
 ];
 
 @NgModule({
-  declarations: [LandingPageComponent,
-                  ToolbarComponent,
+  declarations: [ToolbarComponent,
                   SidenavComponent, 
                   DataappComponent,
                   GenericComponent,

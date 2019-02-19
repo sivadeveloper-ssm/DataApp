@@ -12,10 +12,10 @@ table {
 }
 
 .card-mat-table-data:hover{
-  -webkit-transform: scale(1.0);
-  -ms-transform: scale(1.0);
-  transform: scale(1.0);
-  transition: 1s ease;
+//  -webkit-transform: scale(1.0);
+//  -ms-transform: scale(1.0);
+//  transform: scale(1.0);
+//  transition: 1s ease;
   background-color : #9FA8DA;
 }
 
@@ -23,9 +23,7 @@ table {
  text-align: right;
 }
 
-.highlight{
-  background: #42A948; /* green */
-}
+
 
 .app-generic-table-th{
   color: darkcyan;
