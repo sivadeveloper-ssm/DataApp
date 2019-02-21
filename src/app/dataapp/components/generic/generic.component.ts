@@ -10,9 +10,8 @@ import { geography } from '../../models/geography';
 import { ContentType } from '../../models/contenttype';
 import { ContentSubType } from '../../models/contentSubType';
 import { AdddialogComponent } from '../../dialogs/adddialog/adddialog.component';
-import { map } from 'rxjs/operators';
 import { EditdialogComponent } from '../../dialogs/editdialog/editdialog.component';
-import { genericEntity } from '../../models/genericEntity';
+
 
 @Component({
   selector: 'app-generic',
