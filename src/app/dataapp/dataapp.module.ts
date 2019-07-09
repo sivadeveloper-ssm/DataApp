@@ -22,7 +22,7 @@ const routes : Routes = [
   { path : '', component : DataappComponent,
    children : [ 
      { path : 'areas' , component : GenericComponent},
-     { path : 'subAreas', component : GenericComponent},
+     { path : 'topics', component : GenericComponent},
      { path : 'governingBodies' , component : GenericComponent},
      {path : 'industries' , component : GenericComponent},
      {path : 'products' , component : GenericComponent},
@@ -30,7 +30,7 @@ const routes : Routes = [
      { path : 'citations' , component : GenericComponent},
      {path : 'synonyms' , component : GenericComponent},
      {path : 'contentTypes' , component : GenericComponent},
-     {path : 'contentSubTypes' , component : GenericComponent},
+     {path : 'types' , component : GenericComponent},
      { path : 'geographies', component : GenericComponent},
      {path : 'fileTypes', component : GenericComponent}
    ]},

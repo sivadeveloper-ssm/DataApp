@@ -18,7 +18,7 @@ export class ContentService {
   constructor(private http : HttpClient,private snackBar : MatSnackBar) { }
 
   getData(attribute) : Observable<any> {
-    return this.http.get(this.endPoint + attribute).pipe(
+    return this.http.get(this.endPoint + attribute + "/all").pipe(
       map(this.extractData));
   }
 
@@ -28,7 +28,6 @@ export class ContentService {
   }
 
   setData(entity : any)  {
-    console.log(entity);
     return this.http.post(this.endPoint + entity.attribute,entity).subscribe(data => {
       this.snackBar.open( "Successfully Completed","Ok", {
         duration : 2000,
@@ -42,7 +41,6 @@ export class ContentService {
   }
 // { params : { id  : entity.id}}
   updateData(entity : any){
-    
     return this.http.put(this.endPoint + entity.attribute + "/" + entity.id, entity).subscribe(data => {
                             this.snackBar.open( "Successfully Completed","Ok", {
                               duration : 2000,

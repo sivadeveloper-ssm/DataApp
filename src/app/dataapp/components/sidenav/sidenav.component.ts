@@ -8,23 +8,11 @@ import { Router } from '@angular/router';
 })
 export class SidenavComponent implements OnInit {
 
-  private databaseTables = ['areas','subAreas','citations','contentTypes',
-                            'industries','products','governingBodies',
-                          'contentSubTypes','fileTypes','geographies',
+  private databaseTables = ['areas','topics','citations',
+                            'industries','products','governingBodies','contentTypes',
+                          'types','geographies',
                           'synonyms','templateTypes'];
 
- map = new Map([['areas','Areas'],
-                ['subAreas','Sub Areas'],
-                ['citations','Citations'],
-                ['contentTypes','Content Types'],
-                ['industries','Industries'],
-                ['products','Products'],
-                ['governingBodies','Governing Bodies'],
-                ['contentSubTypes','Content Sub Types'],
-                ['fileTypes','File Types'],
-                ['geographies','Geographies'],
-                ['synonyms','Synonyms'],
-                ['templateTypes','Template Types']]);
   constructor(private route : Router) { }
 
   ngOnInit() {
@@ -32,6 +20,9 @@ export class SidenavComponent implements OnInit {
     this.route.navigate(['/dataapp/areas']);
   }
 
+  firstLetterUpperCase(stringValue){
+    return stringValue.charAt(0).toUpperCase() + stringValue.slice(1);
+  }
 
 
 }

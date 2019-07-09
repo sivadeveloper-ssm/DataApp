@@ -1,11 +1,11 @@
-<div *ngIf="!results">
-    <mat-spinner></mat-spinner>
+<div *ngIf="!results" class="spinner-class">
+    <mat-spinner ></mat-spinner>
 </div>
 <div *ngIf="results">
   <mat-card>
     <mat-card-header>
       <mat-card-title  color="accent">
-        {{map.get(this.attribute)}}    
+        {{firstLetterUpperCase(this.attribute)}}    
       </mat-card-title>
       
     </mat-card-header>
@@ -24,10 +24,17 @@
           
             
            
-              <ng-container matColumnDef="description">
+              <ng-container matColumnDef="description" *ngIf="attribute != 'citations'">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header  class="app-generic-table-th" > Description </th>
                 <td mat-cell *matCellDef="let entity" > {{entity.description}} </td>
               </ng-container>
+
+
+              <ng-container matColumnDef="isActive">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header  class="app-generic-table-th" > IsActive </th>
+                <td mat-cell *matCellDef="let entity" > {{entity.isActive}} </td>
+              </ng-container>
+
 
               <ng-container matColumnDef="modifybutton">
                   <th mat-header-cell *matHeaderCellDef class="card-mat-table-data-button">
@@ -49,7 +56,25 @@
               <ng-container matColumnDef="citationid" *ngIf="attribute == 'citations'">
                 <th mat-header-cell *matHeaderCellDef class="app-generic-table-th"> Citation Id </th>
                 <td mat-cell *matCellDef="let citation">
-                   {{citation.citationId}} </td>
+                   {{citation.cfrId}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="effectivedate" *ngIf="attribute == 'citations'">
+                <th mat-header-cell *matHeaderCellDef class="app-generic-table-th"> Effective Date </th>
+                <td mat-cell *matCellDef="let citation">
+                   {{citation.effectivedate}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="title" *ngIf="attribute == 'citations'">
+                <th mat-header-cell *matHeaderCellDef class="app-generic-table-th"> Title </th>
+                <td mat-cell *matCellDef="let citation">
+                   {{citation.title}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="alttitle" *ngIf="attribute == 'citations'">
+                <th mat-header-cell *matHeaderCellDef class="app-generic-table-th"> Alt Title </th>
+                <td mat-cell *matCellDef="let citation">
+                   {{citation.alttitle}} </td>
               </ng-container>
 
                <!-- End of attributes specific to Citations-->
@@ -84,33 +109,20 @@
                <!-- End of attributes specific to Content Types -->
 
 
-                <!-- start of attributes specific to Geographies -->
-
-              <ng-container matColumnDef="abbr" *ngIf="attribute == 'geographies'">
-                <th mat-header-cell *matHeaderCellDef class="app-generic-table-th"> Abbreviation </th>
-                <td mat-cell *matCellDef="let geography"> {{geography.abbreviation}} </td>
-              </ng-container>
-         
-            <ng-container matColumnDef="geographyType" *ngIf="attribute == 'geographies'">
-              <th mat-header-cell *matHeaderCellDef class="app-generic-table-th"> Geography Type </th>
-              <td mat-cell *matCellDef="let geography"> {{getGeographyType(geography.type)}} </td>
-            </ng-container>
-
-             <!-- End of attributes specific to Geographies -->
             
-            <!-- start of attributes specific to Content Sub Types -->
+            <!-- start of attributes specific to  Types -->
 
-            <ng-container matColumnDef="parent" *ngIf="attribute == 'contentSubTypes'">
-              <th mat-header-cell *matHeaderCellDef class="app-generic-table-th"> Parent </th>
-              <td mat-cell *matCellDef="let contentsubtype"> {{getContentTypeName(contentsubtype.parentId)}} </td>
+            <ng-container matColumnDef="contentType" *ngIf="attribute == 'types'">
+              <th mat-header-cell *matHeaderCellDef class="app-generic-table-th"> Content Type </th>
+              <td mat-cell *matCellDef="let type"> {{getContentTypeName(type.contentId)}} </td>
             </ng-container>
 
-          <ng-container matColumnDef="templateType" *ngIf="attribute == 'contentSubTypes'">
+          <ng-container matColumnDef="templateType" *ngIf="attribute == 'types'">
             <th mat-header-cell *matHeaderCellDef class="app-generic-table-th"> Template Type </th>
-            <td mat-cell *matCellDef="let contentsubtype"> {{getTemplateName(contentsubtype.templateId)}} </td>
+            <td mat-cell *matCellDef="let type"> {{getTemplateName(type.templateId)}} </td>
           </ng-container>
 
-            <!-- End of attributes specific to Content Sub Types -->
+            <!-- End of attributes specific to Types -->
 
           
 
@@ -119,7 +131,7 @@
               <tr mat-row   *matRowDef="let row; columns: displayedColumns;" class="card-mat-table-data" ></tr>
             </table>
           
-            <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[10,20,50,100]" showFirstLastButtons></mat-paginator>
           </div>
          
     </mat-card-content>

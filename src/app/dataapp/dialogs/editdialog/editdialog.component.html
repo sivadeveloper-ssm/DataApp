@@ -1,9 +1,10 @@
 <div class="container">
-        <h1 mat-dialog-title color="primary"> {{ data.title }}</h1>
+        <h1 mat-dialog-title color="primary"  class="dialog-title"> {{ data.title }}</h1>
         
         <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
         
-        
+        <mat-card>
+          <mat-card-content>
         <div class="form">
         
           <mat-form-field color="accent">
@@ -12,6 +13,20 @@
           </mat-form-field>
         
         </div>
+
+   
+
+        <div class="form">
+         <label class="isactive-radio-label" for="isActive">Is Active</label>
+          <mat-radio-group color="accent" name="isActive_radio_group" [(ngModel)]="data.isActive">
+          <mat-radio-button class="isactive-radio-button" name="isActive"  [value]="true">True</mat-radio-button>
+            <mat-radio-button class="isactive-radio-button" name="isActive"   [value]="false">False</mat-radio-button>
+          </mat-radio-group>
+        
+        </div>
+
+  
+
 <!-- Below field is only visible to Citation Attribute-->
         <div class="form">
         
@@ -36,8 +51,8 @@
   
 <!-- Below field is visible to Content Sub Type Attributes -->
         <div class="form">    
-            <mat-form-field color="accent" *ngIf="data.parentId !=undefined">
-              <mat-select placeholder="Content Type" required [(ngModel)]="data.parentId"  name="contenttype">
+            <mat-form-field color="accent" *ngIf="data.contentId !=undefined">
+              <mat-select placeholder="Content Type" required [(ngModel)]="data.contentId"  name="contenttype">
                 <mat-option *ngFor="let contenttype of data.contentTypes" [value]="contenttype.id" >
                   {{contenttype.description}}
                 </mat-option>
@@ -94,8 +109,11 @@
 
         <div mat-dialog-actions>
         
-          <button mat-button [mat-dialog-close]="data.description" (click)="onAdd()" [disabled]="!formControl.valid">Add</button>
-          <button mat-button (click)="onCancel()">Cancel</button>
+          <button mat-button [mat-dialog-close]="data.description" mat-raised-button color="accent"
+          name="description" (click)="onAdd()" [disabled]="!formControl.valid">Add</button>
+          <button mat-button name="cancel" mat-raised-button color="accent" (click)="onCancel()">Cancel</button>
         </div>
+      </mat-card-content>
+      </mat-card>
         </form>
         </div>

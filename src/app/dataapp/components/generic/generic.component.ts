@@ -21,18 +21,7 @@ import { EditdialogComponent } from '../../dialogs/editdialog/editdialog.compone
 export class GenericComponent implements OnInit {
 
   private attribute;
-  map = new Map([['areas','Areas'],
-                ['subAreas','Sub Areas'],
-                ['citations','Citations'],
-                ['contentTypes','Content Types'],
-                ['industries','Industries'],
-                ['products','Products'],
-                ['governingBodies','Governing Bodies'],
-                ['contentSubTypes','Content Sub Types'],
-                ['fileTypes','File Types'],
-                ['geographies','Geographies'],
-                ['synonyms','Synonyms'],
-                ['templateTypes','Template Types']]);
+
   @Input() results :  [];
   @Input() topics : BasicEntity[];
   @Input() geographyTypes : BasicEntity[];
@@ -48,15 +37,19 @@ export class GenericComponent implements OnInit {
   ngOnInit() {
 
     this.attribute = this.route.snapshot.url[0].path;
+  
     this.additionalRestCallsIfNeeded();
     this.callAPIandSetMatTable();
-  
+    
   }
 
   // Make the rest call to get the table data and present in Material Design Table.
   callAPIandSetMatTable() : void {
+    
+    
     this.api.getData(this.attribute).subscribe( data => {
       this.results = data;
+    
       this.defineattributeSpecificValues();
       setTimeout(() => this.dataSource.paginator = this.paginator);
       setTimeout(() => this.dataSource.sort = this.sort);
@@ -64,15 +57,20 @@ export class GenericComponent implements OnInit {
     });
   }
 
+  firstLetterUpperCase(stringValue){
+    return stringValue.charAt(0).toUpperCase() + stringValue.slice(1);
+  }
+
   // Open the Adding New Dialog Component
   openDialog(): void {
     
    
     const dailogRef = this.dialog.open(AdddialogComponent,{
-      data : { title : this.map.get(this.attribute),
+      data : { title : this.firstLetterUpperCase(this.attribute),
                attribute : this.attribute ,
               templateTypes : this.templateTypes,
               topics : this.topics,
+              isActive : true,
               contentTypes : this.contentTypes,
               geographyTypes : this.geographyTypes} 
     });
@@ -85,26 +83,26 @@ export class GenericComponent implements OnInit {
 
   }
 
+
   // Open the Editing Dialong Component 
   openEditDialog(row : any) : void {
-
     const dialogRef = this.dialog.open(EditdialogComponent, {
-      data : { title : this.map.get(this.attribute),
+      data : { title : this.firstLetterUpperCase(this.attribute),
                attribute : this.attribute,
                id : row.id,
               description : row.description,
+              isActive : row.isActive,
               citationId : row.citationId,
               templateId : row.templateId,
               templateTypes : this.templateTypes,
-              parentId : row.parentId,
+              contentId : row.contentId,
               contentTypes : this.contentTypes,
               extension : row.extension,
               topicId : row.topicId,
               topics : this.topics,
               type : row.type,
-              geographyTypes : this.geographyTypes,
-              abbreviation : row.abbreviation
-             }
+              geographyTypes : this.geographyTypes
+      }
     });
 
     dialogRef.afterClosed().subscribe( result => {
@@ -129,19 +127,13 @@ export class GenericComponent implements OnInit {
   additionalRestCallsIfNeeded(){
      if(this.attribute == 'synonyms')
      {
-      this.api.getData('subAreas').subscribe( data => {
+      this.api.getData('topics').subscribe( data => {
       this.topics = data;
        });
     }
-    else if(this.attribute == 'geographies')
-    {
-      this.api.getData('geographyTypes').subscribe( data => {
-        this.geographyTypes = data;
-      });
-    }
     else if(this.attribute == 'contentTypes')
       this.getTemplateTypes();
-    else if(this.attribute == 'contentSubTypes')
+    else if(this.attribute == 'types')
     {
       this.getTemplateTypes();
       this.api.getData('contentTypes').subscribe( data => {
@@ -160,16 +152,16 @@ export class GenericComponent implements OnInit {
 
   defineattributeSpecificValues() {
     
-     if(this.attribute == 'areas' || this.attribute =='subAreas' || this.attribute == 'industries' ||
+     if(this.attribute == 'areas' || this.attribute =='topics' || this.attribute == 'industries' ||
         this.attribute == 'products' || this.attribute == 'governingBodies' || this.attribute == 'governingBodies' ||
-        this.attribute == 'templateTypes')
+        this.attribute == 'templateTypes' || this.attribute == 'geographies')
         {
-          this.displayedColumns = ['id', 'description','modifybutton'];
+          this.displayedColumns = ['id', 'description','isActive','modifybutton'];
           this.dataSource = new MatTableDataSource<BasicEntity>(this.results);
         }
       else if(this.attribute == 'citations')
       {
-        this.displayedColumns = ['id','description','citationid','modifybutton'];
+        this.displayedColumns = ['id','citationid','effectivedate','title','alttitle','isActive','modifybutton'];
         this.dataSource = new MatTableDataSource<Citation>(this.results);
       }
       else if(this.attribute == 'fileTypes')
@@ -179,22 +171,17 @@ export class GenericComponent implements OnInit {
       }
       else if(this.attribute == 'synonyms')
       {
-        this.displayedColumns = ['id','description','topic','modifybutton'];
+        this.displayedColumns = ['id','description','topic','isActive','modifybutton'];
         this.dataSource = new MatTableDataSource<Synonyms>(this.results);
-      }
-      else if(this.attribute == 'geographies')
-      {
-        this.displayedColumns = ['id','description','abbr','geographyType','modifybutton'];
-        this.dataSource = new MatTableDataSource<geography>(this.results);
       }
       else if (this.attribute == 'contentTypes')
       {
-        this.displayedColumns = ['id','description','templateType','modifybutton'];
+        this.displayedColumns = ['id','description','templateType','isActive','modifybutton'];
         this.dataSource = new MatTableDataSource<ContentType>(this.results);
       }
-      else if(this.attribute == 'contentSubTypes')
+      else if(this.attribute == 'types')
       {
-        this.displayedColumns = ['id','description','parent','templateType','modifybutton'];
+        this.displayedColumns = ['id','description','contentType','templateType','isActive','modifybutton'];
         this.dataSource = new MatTableDataSource<ContentSubType>(this.results);
       }
   }

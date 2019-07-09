@@ -9,7 +9,7 @@
       <mat-nav-list>
           <mat-list-item *ngFor="let table of databaseTables" [routerLinkActive]="['is-active']" class="app-sidenav-list-item">
         <a matLine [routerLink]="['/dataapp/',table]" class="app-sidenav-link" >
-              {{ map.get(table) }}</a>
+              {{ firstLetterUpperCase(table) }}</a>
           </mat-list-item>
         </mat-nav-list>
   </div>
